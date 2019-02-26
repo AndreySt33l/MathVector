@@ -3,15 +3,15 @@
 //  MVector
 //
 //  Created by Andrey Stalnoy on 2/10/19.
-//  Copyright © 2019 SmartSol SER. All rights reserved.
 //
 
+#include "MathVector.hpp"
 #include <iostream>
 
 using namespace std;
 
-template <typename T, int N>
-class MathVector
+/*template <typename T, int N>
+class MathVectorsa
 {
 private:
     T mathVector[N];
@@ -30,11 +30,11 @@ public:
         for (int i = 0; i < N; i++) mathVector[i] = array[i];
     }
     
-    /*Peak search*/
+
     int findPeakUtil(int arr[], int low, int high, int n)
     {
         // Find index of middle element
-        int mid = low + (high - low)/2;  /* (low + high)/2 */
+        int mid = low + (high - low)/2;  // (low + high)/2
         
         // Compare middle element with its neighbours (if neighbours exist)
         if ((mid == 0 || arr[mid-1] <= arr[mid]) &&
@@ -66,7 +66,7 @@ public:
         return findPeakUtil(arr, 0, n-1, n);
     }
     
-    /*Quick Sort*/
+    Quick Sort
     
     // A utility function to swap two elements
     void swap(int* a, int* b)
@@ -76,11 +76,11 @@ public:
         *b = t;
     }
     
-    /* This function takes last element as pivot, places
+    /This function takes last element as pivot, places
      the pivot element at its correct position in sorted
      array, and places all smaller (smaller than pivot)
      to left of pivot and all greater elements to right
-     of pivot */
+     of pivot
     int partition (T arr[], int low, int high)
     {
         int pivot = arr[high];    // pivot
@@ -100,16 +100,16 @@ public:
         return (i + 1);
     }
     
-    /* The main function that implements QuickSort
+    /The main function that implements QuickSort
      arr[] --> Array to be sorted,
      low  --> Starting index,
-     high  --> Ending index */
+     high  --> Ending index
     void quickSort(T arr[], int low, int high)
     {
         if (low < high)
         {
-            /* pi is partitioning index, arr[p] is now
-             at right place */
+             pi is partitioning index, arr[p] is now
+             at right place
             int pi = partition(arr, low, high);
             
             // Separately sort elements before
@@ -118,107 +118,22 @@ public:
             quickSort(arr, pi + 1, high);
         }
     }
-    
-    /*Overloaded operators*/
-    // Vector Out
-    template <typename U, int I>
-    friend ostream & operator << (ostream &, const MathVector<U, I> &);
-    // Addition
-    template <typename U, int I>
-    friend MathVector<U,I> operator + (MathVector<U, I> const &, MathVector<U, I> const &);
-    // Subtraction
-    template <typename U, int I>
-    friend MathVector<U,I> operator - (MathVector<U, I> const &, MathVector<U, I> const &);
-    // Multiplication (scalar * vector)
-    template <typename U, int I, typename O>
-    friend MathVector<U,I> operator * (O const &, MathVector<U, I> const &);
-    // Multiplication (vectro * scalar)
-    template <typename U, int I, typename O>
-    friend MathVector<U, I> operator * (MathVector<U, I> const &, O const &);
-    
-};
-
-/*Realization*/
-// Out--------------------
-template <typename U, int I>
-ostream & operator << (ostream &out, const MathVector<U, I> &mv)
-{
-    out << "{";
-    for (int i = 0; i != mv.getDimension(); i++) {
-        if(i < mv.getDimension()-1) out << mv.getElement(i) << ", ";
-        else out << mv.getElement(i);
-    }
-    out << "}" << endl;
-    return out;
-}
-// Addition----------------
-template <typename U, int I>
-MathVector<U, I> operator + (MathVector<U, I> const &mv1, MathVector<U, I> const &mv2) {
-    U array[I];
-    for (int i = 0; i < I; i++){
-        array[i] = mv1.getElement(i) + mv2.getElement(i);
-    }
-    
-    MathVector<U, I> mvres;
-    mvres.setMathVector(array);
-    
-    return mvres;
-}
-// Subtraction----------------
-template <typename U, int I>
-MathVector<U, I> operator - (MathVector<U, I> const &mv1, MathVector<U, I> const &mv2) {
-    U array[I];
-    for (int i = 0; i < I; i++){
-        array[i] = mv1.getElement(i) - mv2.getElement(i);
-    }
-    
-    MathVector<U, I> mvres;
-    mvres.setMathVector(array);
-    
-    return mvres;
-}
-// Multiplication (scalar * vector)
-template <typename U, int I, typename O>
-MathVector<U, I> operator * (O const &scalar, MathVector<U, I> const &mv2) {
-    U array[I];
-    for (int i = 0; i < I; i++){
-        array[i] = scalar * mv2.getElement(i);
-    }
-    
-    MathVector<U, I> mvres;
-    mvres.setMathVector(array);
-    
-    return mvres;
-}
-// Multiplication (vector * scalar)
-template <typename U, int I, typename O>
-MathVector<U, I> operator * (MathVector<U, I> const &mv2, O const &scalar) {
-    U array[I];
-    for (int i = 0; i < I; i++){
-        array[i] = scalar * mv2.getElement(i);
-    }
-    
-    MathVector<U, I> mvres;
-    mvres.setMathVector(array);
-    
-    return mvres;
-}
-
+ */
 
 int main(int argc, const char * argv[]) {
     int const size = 4;
     int array [size] = {1,2,6,4};
     
-    MathVector<int, size> mv;
+    MathVector<int, size> mv1;
+    mv1.setVector(array);
+    mv1.displayVector();
+ 
     
-    cout << mv.getDimension() << endl;
+    MathVector<int, size> mv2(array);
+    mv2.displayVector();
     
-    mv.setMathVector(array);
-    
-    cout << mv.getElement(mv.getPeakIndex()) << endl;
-    
-    mv.quickSort(array, 0, size-1);
-    mv.displayArray(array, size);
-    
+    cout << mv1 + mv2;
+    cout << mv1 * 3;
+    cout << mv2 + mv1 * 3;
     return 0;
 }
