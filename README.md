@@ -1,2 +1,2 @@
 # MathVector
-Mathematical Vector with overridden operators
+Mathematical Vector with overloaded operators
